@@ -1,14 +1,16 @@
 import {Todo} from "./Todo";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {RequestFunctions} from "./App";
 
 type EditViewProps = {
     todo: Todo,
-    changeModeFunction: (mode: string, id?: string, todo?: Todo) => void,
-    updateFunction: (todo: Todo) => void
 }
 
 export default function EditView(props: EditViewProps) {
+
     const [updatedTodo, setUpdatedTodo] = useState<Todo>(props.todo)
+    const httpFunctions = useContext(RequestFunctions)
+
     return (
         <div className={"EditView"}>
                 <div className={"EditField"}>
@@ -27,7 +29,7 @@ export default function EditView(props: EditViewProps) {
                         <option value={"DONE"}>Done</option>
                     </select>
                 </div>
-            <button type={"button"} onClick={() => {props.updateFunction(updatedTodo); props.changeModeFunction("overview", "" , updatedTodo)}}>Save</button>
+            <button type={"button"} onClick={() => {httpFunctions.put(updatedTodo); httpFunctions.change("overview", "" , updatedTodo)}}>Save</button>
         </div>
     )
 }

@@ -3,10 +3,6 @@ import TodoItem from "./TodoItem";
 
 type GalleryProps = {
     todos: Todo[],
-    changeModeFunction: (newMode: string, id?: string) => void,
-    deleteFunction: (todo: Todo) => void,
-    putFunction: (todo: Todo) => void,
-    progressFunction: (todo: Todo) => void
 }
 
 export default function TodoGallery(props: GalleryProps) {
@@ -17,7 +13,7 @@ export default function TodoGallery(props: GalleryProps) {
                 <div className={"ItemContainer"}>
                     {props.todos.filter(t => t.status === "OPEN").map(t => {
                         console.log(t)
-                        return <TodoItem todo={t} changeModeFunction={props.changeModeFunction} deleteFunction={props.deleteFunction} putFunction={props.putFunction} progressFunction={props.progressFunction}/>
+                        return <TodoItem todo={t} />
                     })}
                 </div>
             </div>
@@ -25,7 +21,7 @@ export default function TodoGallery(props: GalleryProps) {
                 <h2>In Progress</h2>
                 <div className={"ItemContainer"}>
                     {props.todos.filter(t => t.status === "IN_PROGRESS").map(t => {
-                        return <TodoItem todo={t} changeModeFunction={props.changeModeFunction} deleteFunction={props.deleteFunction} putFunction={props.putFunction} progressFunction={props.progressFunction}/>
+                        return <TodoItem todo={t} />
                     })}
                 </div>
             </div>
@@ -33,7 +29,7 @@ export default function TodoGallery(props: GalleryProps) {
                 <h2>Done</h2>
                 <div className={"ItemContainer"}>
                     {props.todos.filter(t => t.status === "DONE").map(t => {
-                        return <TodoItem todo={t} changeModeFunction={props.changeModeFunction} deleteFunction={props.deleteFunction} putFunction={props.putFunction} progressFunction={props.progressFunction}/>
+                        return <TodoItem todo={t} />
                     })}
                 </div>
             </div>

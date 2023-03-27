@@ -9,7 +9,7 @@ import StatusView from "./StatusView";
 import AddBar from "./AddBar";
 import EditView from "./EditView";
 
-const RequestList = createContext<{}>({})
+export const RequestFunctions = createContext<{change: (mode: string, id?: string, todo?: Todo) => void, post: (description: string) => void, progress: (todo: Todo) => void, put: (todo: Todo) => void, delete: (todo: Todo) => void}>({change: () => {}, post: () => {}, progress: () => {}, put: () => {}, delete: () => {}})
 
 function App() {
 
@@ -72,27 +72,25 @@ function App() {
 
     return (
         <div className="App">
-            <RequestList.Provider value={{post: postTodo, put: putTodo, progress: progressTodo, delete: deleteTodo, change: changeMode}}>
+            <RequestFunctions.Provider value={{post: postTodo, put: putTodo, progress: progressTodo, delete: deleteTodo, change: changeMode}}>
                 <header className="App-header">
                     <h1> Todo App</h1>
-                    <NavigationBar changeModeFunction={changeMode} mode={mode}/>
+                    <NavigationBar mode={mode}/>
                 </header>
                 {
                     mode.toLowerCase() === "overview"
                     &&
-                    <TodoGallery todos={todos} changeModeFunction={changeMode} progressFunction={progressTodo}
-                                 putFunction={putTodo}
-                                 deleteFunction={deleteTodo}/>
+                    <TodoGallery todos={todos} />
                 }
                 {
                     mode.toLowerCase() === "detail"
                     && currentTodo.id !== ""
-                    && <DetailView todo={currentTodo} changeModeFunction={changeMode}/>
+                    && <DetailView todo={currentTodo} />
                 }
                 {
                     mode.toLowerCase() === "edit"
                     && currentTodo.id !== ""
-                    && <EditView todo={currentTodo} changeModeFunction={changeMode} updateFunction={putTodo}/>
+                    && <EditView todo={currentTodo} />
                 }
                 {
                     (
@@ -100,11 +98,10 @@ function App() {
                         || mode.toLowerCase() === "in_progress"
                         || mode.toLowerCase() === "done"
                     )
-                    && <StatusView todos={todos} mode={mode} changeModeFunction={changeMode} deleteFunction={deleteTodo}
-                                   putFunction={putTodo} progressFunction={progressTodo}/>
+                    && <StatusView todos={todos} mode={mode} />
                 }
-                <AddBar addFunction={postTodo}/>
-            </RequestList.Provider>
+                <AddBar />
+            </RequestFunctions.Provider>
         </div>
     )
         ;

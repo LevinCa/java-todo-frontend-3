@@ -1,6 +1,6 @@
 import {Todo} from "./Todo";
 
-type DetailViewProps = { todo: Todo, changeModeFunction: (newMode: string, id?: string) => void }
+type DetailViewProps = {todo: Todo}
 
 export default function DetailView(props: DetailViewProps) {
     return (
