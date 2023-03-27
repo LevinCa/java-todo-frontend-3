@@ -1,0 +1,173 @@
+body {
+  background-color: #3f3f3f;
+  color: white;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #2f2f2f;
+  font-size: calc(10px + 2vmin);
+  padding-top: 10px;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 1.5rem;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.NavigationBar {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #292929;
+}
+
+.NavigationItem {
+  padding: 20px;
+  width: 25%;
+}
+
+.NavigationItem:hover {
+  background-color: #1f1f1f;
+}
+
+.selected{
+  background-color: black;
+}
+
+.TodoGallery {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.GalleryContainer {
+  padding-bottom: 2rem;
+}
+
+.StatusView {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.ItemContainer {
+  display: flex;
+  gap: 3rem;
+}
+
+.TodoItem {
+  width: 33%;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 1.5rem;
+  background-color: #1f1f1f;
+  border-radius: 10px;
+}
+
+.ButtonBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border: none;
+  background-color: #2f2f2f;
+  color: white;
+  width: 30%;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: black;
+}
+
+.DetailView, .EditView{
+  width: 400px;
+  background-color: #1f1f1f;
+  border-radius: 20px;
+  margin-left: calc(50% - 200px);
+  margin-top: 3rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.PropertyContainer , .EditField{
+  display: flex;
+  justify-content: space-between;
+}
+
+.PropertyContainer label, .EditField label {
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.AddBar{
+  padding: 2rem;
+  background-color: #2f2f2f;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.AddBar input {
+  width: 60%;
+  background-color: #1f1f1f;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  padding: 0.5rem;
+}
+
+.AddBar button {
+  background-color: #1f1f1f;
+  padding: 0.5rem;
+}
+
+.AddBar button:hover {
+  background-color: black;
+}
+
+.EditView {
+  gap: 1.5rem;
+}
+
+.EditField input, .EditField select {
+  background-color: #2f2f2f;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  padding: 0.5rem;
+}
