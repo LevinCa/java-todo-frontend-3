@@ -1,8 +1,6 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 import NavigationBar from "./NavigationBar";
-import {Todo} from "./Todo";
-import axios from "axios";
 import TodoGallery from "./TodoGallery";
 import DetailView from "./DetailView";
 import StatusView from "./StatusView";
