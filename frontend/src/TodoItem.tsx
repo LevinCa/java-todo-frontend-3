@@ -1,6 +1,6 @@
 import {Todo} from "./Todo";
 import {useContext} from "react";
-import {RequestFunctions} from "./App";
+import {RequestFunctions} from "./ContextTodo";
 
 type TodoProps = {
     todo: Todo,

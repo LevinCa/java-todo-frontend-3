@@ -52,6 +52,7 @@ h1 {
 .NavigationItem {
   padding: 20px;
   width: 25%;
+  cursor: pointer;
 }
 
 .NavigationItem:hover {

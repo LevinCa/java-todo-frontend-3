@@ -1,6 +1,6 @@
 import {Todo} from "./Todo";
 import {useContext, useState} from "react";
-import {RequestFunctions} from "./App";
+import {RequestFunctions} from "./ContextTodo";
 
 type EditViewProps = {
     todo: Todo,

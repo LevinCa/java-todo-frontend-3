@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import './App.css';
 import NavigationBar from "./NavigationBar";
 import {Todo} from "./Todo";
@@ -8,100 +8,43 @@ import DetailView from "./DetailView";
 import StatusView from "./StatusView";
 import AddBar from "./AddBar";
 import EditView from "./EditView";
+import {RequestFunctions} from "./ContextTodo";
 
-export const RequestFunctions = createContext<{change: (mode: string, id?: string, todo?: Todo) => void, post: (description: string) => void, progress: (todo: Todo) => void, put: (todo: Todo) => void, delete: (todo: Todo) => void}>({change: () => {}, post: () => {}, progress: () => {}, put: () => {}, delete: () => {}})
 
 function App() {
 
-    const [todos, setTodos] = useState<Todo[]>([])
-    const [mode, setMode] = useState<string>("overview")
-    const [currentTodo, setCurrentTodo] = useState<Todo>({id: "", description: "", status: ""})
-
-    useEffect(
-        () => getAllTodos()
-        , []
-    )
-
-    function getAllTodos(): void {
-        axios.get<Todo[]>("/api/todo")
-            .then(response => {
-                setTodos(response.data)
-            })
-    }
-
-    function getTodoById(id: string): void {
-        axios.get<Todo>(`/api/todo/${id}`)
-            .then(response => {
-                setCurrentTodo(response.data)
-            })
-    }
-
-    function postTodo(description: string): void {
-        axios.post("/api/todo", {description: description}).then(getAllTodos)
-    }
-
-    function putTodo(todo: Todo): void {
-        axios.put(`/api/todo/${todo.id}`, todo).then(getAllTodos)
-    }
-
-    function progressTodo(todo: Todo): void {
-        let status: string
-        if (todo.status === "OPEN") {
-            status = "IN_PROGRESS"
-        } else status = "DONE"
-        axios.put(`/api/todo/${todo.id}`, {
-            id: todo.id,
-            description: todo.description,
-            status: status
-        }).then(getAllTodos)
-    }
-
-    function deleteTodo(todo: Todo): void {
-        axios.delete(`/api/todo/${todo.id}`).then(getAllTodos)
-    }
-
-    function changeMode(newMode: string, id?: string, todo?: Todo): void {
-        setMode(newMode)
-        if (id) {
-            getTodoById(id)
-        }
-        if (todo) {
-            setCurrentTodo(todo)
-        }
-    }
+    const context = useContext(RequestFunctions)
 
     return (
         <div className="App">
-            <RequestFunctions.Provider value={{post: postTodo, put: putTodo, progress: progressTodo, delete: deleteTodo, change: changeMode}}>
                 <header className="App-header">
                     <h1> Todo App</h1>
-                    <NavigationBar mode={mode}/>
+                    <NavigationBar mode={context.mode}/>
                 </header>
                 {
-                    mode.toLowerCase() === "overview"
+                    context.mode.toLowerCase() === "overview"
                     &&
-                    <TodoGallery todos={todos} />
+                    <TodoGallery todos={context.allTodos} />
                 }
                 {
-                    mode.toLowerCase() === "detail"
-                    && currentTodo.id !== ""
-                    && <DetailView todo={currentTodo} />
+                    context.mode.toLowerCase() === "detail"
+                    && context.currentTodo.id !== ""
+                    && <DetailView todo={context.currentTodo} />
                 }
                 {
-                    mode.toLowerCase() === "edit"
-                    && currentTodo.id !== ""
-                    && <EditView todo={currentTodo} />
+                    context.mode.toLowerCase() === "edit"
+                    && context.currentTodo.id !== ""
+                    && <EditView todo={context.currentTodo} />
                 }
                 {
                     (
-                        mode.toLowerCase() === "open"
-                        || mode.toLowerCase() === "in_progress"
-                        || mode.toLowerCase() === "done"
+                        context.mode.toLowerCase() === "open"
+                        || context.mode.toLowerCase() === "in_progress"
+                        || context.mode.toLowerCase() === "done"
                     )
-                    && <StatusView todos={todos} mode={mode} />
+                    && <StatusView todos={context.allTodos} mode={context.mode} />
                 }
                 <AddBar />
-            </RequestFunctions.Provider>
         </div>
     )
         ;
