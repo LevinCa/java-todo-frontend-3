@@ -1,6 +1,7 @@
 import {Todo} from "./Todo";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {RequestFunctions} from "./ContextTodo";
+import {useParams} from "react-router-dom";
 
 type EditViewProps = {
     todo: Todo,
@@ -10,6 +11,11 @@ export default function EditView(props: EditViewProps) {
 
     const [updatedTodo, setUpdatedTodo] = useState<Todo>(props.todo)
     const httpFunctions = useContext(RequestFunctions)
+    const {id} = useParams<{id: string}>()
+
+    useEffect(() => {
+        if(id) httpFunctions.getById(id)
+    }, [])
 
     return (
         <div className={"EditView"}>

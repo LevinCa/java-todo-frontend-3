@@ -7,6 +7,7 @@ import StatusView from "./StatusView";
 import AddBar from "./AddBar";
 import EditView from "./EditView";
 import {RequestFunctions} from "./ContextTodo";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 
 function App() {
@@ -14,38 +15,32 @@ function App() {
     const context = useContext(RequestFunctions)
 
     return (
-        <div className="App">
+        <BrowserRouter>
+            <div className="App">
                 <header className="App-header">
                     <h1> Todo App</h1>
                     <NavigationBar mode={context.mode}/>
                 </header>
-                {
-                    context.mode.toLowerCase() === "overview"
-                    &&
-                    <TodoGallery todos={context.allTodos} />
-                }
-                {
-                    context.mode.toLowerCase() === "detail"
-                    && context.currentTodo.id !== ""
-                    && <DetailView todo={context.currentTodo} />
-                }
-                {
-                    context.mode.toLowerCase() === "edit"
-                    && context.currentTodo.id !== ""
-                    && <EditView todo={context.currentTodo} />
-                }
-                {
-                    (
-                        context.mode.toLowerCase() === "open"
-                        || context.mode.toLowerCase() === "in_progress"
-                        || context.mode.toLowerCase() === "done"
-                    )
-                    && <StatusView todos={context.allTodos} mode={context.mode} />
-                }
-                <AddBar />
-        </div>
+            </div>
+            <Routes>
+                <Route path={"/todo"} element={
+                    <div>
+                        <TodoGallery todos={context.allTodos}/>
+                        <AddBar/>
+                    </div>
+                }/>
+                <Route path={"/todo/detail/:id"} element={
+                    <DetailView todo={context.currentTodo}/>
+                }/>
+                <Route path={"/todo/edit/:id"} element={
+                    <EditView todo={context.currentTodo}/>
+                }/>
+                <Route path={"/todo/:status"} element={
+                    <StatusView todos={context.allTodos} mode={context.mode}/>
+                }/>
+            </Routes>
+        </BrowserRouter>
     )
-        ;
 }
 
 export default App;
