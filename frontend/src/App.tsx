@@ -23,21 +23,23 @@ function App() {
                 </header>
             </div>
             <Routes>
-                <Route path={"/todo"} element={
-                    <div>
-                        <TodoGallery todos={context.allTodos}/>
-                        <AddBar/>
-                    </div>
-                }/>
-                <Route path={"/todo/detail/:id"} element={
-                    <DetailView todo={context.currentTodo}/>
-                }/>
-                <Route path={"/todo/edit/:id"} element={
-                    <EditView todo={context.currentTodo}/>
-                }/>
-                <Route path={"/todo/:status"} element={
-                    <StatusView todos={context.allTodos} mode={context.mode}/>
-                }/>
+                <Route path={"/todo"}>
+                    <Route index element={
+                        <div>
+                            <TodoGallery todos={context.allTodos}/>
+                            <AddBar/>
+                        </div>
+                    }/>
+                    <Route path={"detail/:id"} element={
+                        <DetailView todo={context.currentTodo}/>
+                    }/>
+                    <Route path={"edit/:id"} element={
+                        <EditView todo={context.currentTodo}/>
+                    }/>
+                    <Route path={":status"} element={
+                        <StatusView todos={context.allTodos} mode={context.mode}/>
+                    }/>
+                </Route>
             </Routes>
         </BrowserRouter>
     )

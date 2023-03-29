@@ -53,6 +53,8 @@ h1 {
   padding: 20px;
   width: 25%;
   cursor: pointer;
+  color: white;
+  text-decoration: none;
 }
 
 .NavigationItem:hover {
@@ -171,4 +173,8 @@ button:hover {
   border-radius: 3px;
   color: white;
   padding: 0.5rem;
+}
+
+.active {
+  background-color: black;
 }
