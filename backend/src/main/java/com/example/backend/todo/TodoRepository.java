@@ -10,13 +10,6 @@ import java.util.*;
 public class TodoRepository {
     private final List<Todo> todoList = new ArrayList<>();
 
-    public TodoRepository() {
-        this.todoList.add(new Todo("123", "Bla Bla", TodoStatus.OPEN));
-        this.todoList.add(new Todo("234", "Test", TodoStatus.OPEN));
-        this.todoList.add(new Todo("345", "What Am I Doing?", TodoStatus.IN_PROGRESS));
-        this.todoList.add(new Todo("456", "This is just a Test", TodoStatus.DONE));
-    }
-
     public List<Todo> findAll() {
         return this.todoList;
     }
